@@ -12,7 +12,7 @@ const Email = require("../models/Email");
 const upload = multer({ dest: "uploads/" });
 
 router.post("/send-emails", async (req, res) => {
-  const { emails } = req.body;
+  const { emails, subject, body } = req.body;
 
   // Cấu hình nodemailer
   const transporter = nodemailer.createTransport({
@@ -29,8 +29,8 @@ router.post("/send-emails", async (req, res) => {
     const mailOptions = {
       from: "tranthideptrai@gmail.com",
       to: email,
-      subject: "Test Email",
-      text: "This is a test email sent from Node.js application.",
+      subject: subject || "Test Email",
+      html: body || "test",
     };
 
     try {
